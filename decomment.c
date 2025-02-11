@@ -11,11 +11,11 @@ enum Statetype handleRegularTextState(int c) {
     if (c == '/') 
         state = Begin_Comment;
     else if (c == '\'') {
-        printchar(c); 
+        putchar(c); 
         state = Begin_Char;
     }
     else if (c == '"') {
-        printchar(c); 
+        putchar(c); 
         state = Begin_Str;
     }
     else {
@@ -24,14 +24,15 @@ enum Statetype handleRegularTextState(int c) {
     } 
     return state; 
 }
-enum Statetype handleBeginCommentState(int c) { 
+enum Statetype handleBeginCommentState(int c, int *errorLine, int *totalLines) { 
     enum Statetype state; 
     if (c == '/') { 
         putchar('/'); 
-        puthchar(c); 
+        putchar(c); 
         state = Begin_Comment;
     }
     else if (c == '*') { 
+        errorLine = totalLines; 
         state = In_Comment;
     }
     else if (c == '\'') { 
@@ -84,6 +85,9 @@ enum Statetype handleInCommentState(int c) {
     if (c == '*') {
         state = Exit_Comment; 
     }
+    else if (c == '\n') {
+        putchar(c); 
+    }
     else {
         state = In_Comment; 
     }
@@ -128,8 +132,13 @@ enum Statetype handleOrdinaryStrState(int c) {
 
 int main(void) { 
     int c; 
+    int totalLines = 1; 
+    int lineError = 1; 
     enum Statetype state = Regular_Text; 
     while ((c = getchar()) != EOF) { 
+        if (c == '\n'){
+            totalLines++; 
+        } 
         switch (state) { 
             case Regular_Text:
                 state = handleRegularTextState(c); 
@@ -157,11 +166,13 @@ int main(void) {
                 break; 
         }
     }
-    
+
     if (state == Regular_Text || state == Begin_Char || state == Ord_Char || state == Begin_Str || state == Ord_Str) {
         return EXIT_SUCCESS; 
     }
 
-    else return EXIT_FAILURE; 
-    
+    else { 
+        fprintf(stderr, "Error: line " + lineError + ": unterminated comment\n" ); 
+        return EXIT_FAILURE; 
+    } 
 }
