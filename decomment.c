@@ -82,15 +82,13 @@ enum Statetype handleBeginStringState(int c) {
     return state; 
 }
 enum Statetype handleInCommentState(int c) {
-    putchar(' '); 
-    putchar(c); 
     enum Statetype state;
     if (c == '*') {
-        putchar('N');
         state = Exit_Comment; 
     }
     else if (c == '\n') {
         putchar(c); 
+        state = In_Comment; 
     }
     else {
         state = In_Comment; 
