@@ -133,7 +133,7 @@ int main(void) {
     putchar('P');
     int c; 
     int totalLines = 1; 
-    int lineError = RLIM_INFINITY; 
+    int lineError = 0; 
     int line = 1; 
     enum Statetype state = Regular_Text; 
     while ((c = getchar()) != EOF) { 
@@ -148,7 +148,7 @@ int main(void) {
                 state = handleBeginCharState(c); 
                 break; 
             case Begin_Comment:
-                state = handleBeginCommentState(c, lineError, totalLines);
+                state = handleBeginCommentState(c);
                 break; 
             case Begin_Str:
                 state = handleBeginStringState(c); 
