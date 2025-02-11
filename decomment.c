@@ -132,8 +132,6 @@ int main(void) {
     int c; 
     int totalLines = 1; 
     int lineError = 1; 
-    int inCommentTimes = 0; 
-    int exitCommentTimes = 0; 
 
     enum Statetype state = Regular_Text; 
     while ((c = getchar()) != EOF) { 
@@ -142,32 +140,33 @@ int main(void) {
         } 
         switch (state) { 
             case Regular_Text:
+                lineError  = totalLines; 
                 state = handleRegularTextState(c); 
                 break; 
             case Begin_Char:
+                lineError = totalLines; 
                 state = handleBeginCharState(c); 
                 break; 
             case Begin_Comment:
+                lineError = totalLines; 
                 state = handleBeginCommentState(c);
                 break; 
             case Begin_Str:
+                lineError = totalLines; 
                 state = handleBeginStringState(c); 
                 break; 
             case In_Comment:
-                inCommentTimes++; 
-                if (inCommentTimes != exitCommentTimes) { 
-                    lineError = totalLines; 
-                } 
                 state = handleInCommentState(c); 
                 break; 
             case Exit_Comment:
-                exitCommentTimes++; 
                 state = handleExitCommentState(c);
                 break; 
-            case Ord_Char: 
+            case Ord_Char:
+                lineError = totalLines; 
                 state = handleOrdinaryCharState(c); 
                 break; 
             case Ord_Str:
+                lineError = totalLines; 
                 state = handleOrdinaryStrState(c); 
                 break; 
         }
@@ -176,6 +175,8 @@ int main(void) {
     if (state == Begin_Comment) { 
         putchar('/'); 
     }
+
+
     if (state == Regular_Text || state == Begin_Comment|| state == Begin_Char || state == Ord_Char || state == Begin_Str || state == Ord_Str) {
         return EXIT_SUCCESS; 
     }
