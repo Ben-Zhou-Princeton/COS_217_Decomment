@@ -48,7 +48,7 @@ enum Statetype handleBeginCommentState(int c) {
         state = Begin_Str;
     } 
     else if (c == EOF) { 
-        putchar('/')
+        putchar('/');
     }
     else {
         putchar('/');
