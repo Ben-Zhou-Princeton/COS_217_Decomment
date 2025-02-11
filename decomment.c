@@ -147,7 +147,7 @@ int main(void) {
                 state = handleBeginCharState(c); 
                 break; 
             case Begin_Comment:
-                state = handleBeginCommentState(c);
+                state = handleBeginCommentState(c, lineError, totalLines);
                 break; 
             case Begin_Str:
                 state = handleBeginStringState(c); 
@@ -172,7 +172,7 @@ int main(void) {
     }
 
     else { 
-        fprintf(stderr, "Error: line " + lineError + ": unterminated comment\n" ); 
+        fprintf(stderr, "Error: line %d: unterminated comment\n", lineError); 
         return EXIT_FAILURE; 
     } 
 }
