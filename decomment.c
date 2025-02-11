@@ -100,7 +100,6 @@ enum Statetype handleExitCommentState(int c) {
         state = Exit_Comment;
     }
     else if (c == '/') {
-        putchar('N');
         putchar(' '); 
         state = Regular_Text; 
     }
