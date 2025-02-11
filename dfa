@@ -1,0 +1,35 @@
+------------------------------------------------------------------------
+Textual representation of the Decomment DFA
+------------------------------------------------------------------------
+Regular_Text (Accept) <-- the start state
+    / : Begin_Comment 
+    ' : Begin_Char (print c to stdout)
+    " : Begin_Str (print c to stdout)
+    other: Regular_Text (print c to stdout)
+Begin_Comment (Accept)
+    / : Begin_Comment (put / to stdout)
+    * : In_Comment (put space to stdout)
+    ' : Begin_Comment (print / and c to stdout)
+    " : Begin_Str (print / and c to stdout)
+    other : Regular_Text (print / and c to stdout )
+Begin_Char (Accept)
+    ' : Regular Text (print c to stdout)
+    \ : Ord_Char (print c to stdout)
+    other: Begin_Char (print c to stdout)
+Begin_Str (Accept)
+    " : Regular Text (print c to stdout)
+    \ : Ord_Str (print c to stdout)
+    other : Begin_Str (print c to stdout)
+In_Comment (Reject)
+    * : Exit_Comment
+    \n : In_Comment (print c to stdout)
+    other: In_Comment
+Exit_Comment (Reject)
+    * : Exit_Comment
+    / : Regular_Text
+    \n: In_Comment (print c to stdout)
+    other: In_Comment
+Ord_Char
+    other: Begin_Char (print c to stdout)
+Ord_Str
+    other: Begin_Str (print c to stdout)
