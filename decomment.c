@@ -30,7 +30,6 @@ enum Statetype handleBeginCommentState(int c) {
     enum Statetype state; 
     if (c == '/') { 
         putchar('/'); 
-        putchar(c); 
         state = Begin_Comment;
     }
     else if (c == '*') { 
