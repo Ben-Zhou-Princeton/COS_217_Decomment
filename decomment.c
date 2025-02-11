@@ -34,8 +34,6 @@ enum Statetype handleBeginCommentState(int c) {
         state = Begin_Comment;
     }
     else if (c == '*') { 
-        putchar(' '); 
-        putchar(c); 
         state = In_Comment;
     }
     else if (c == '\'') { 
@@ -84,6 +82,8 @@ enum Statetype handleBeginStringState(int c) {
     return state; 
 }
 enum Statetype handleInCommentState(int c) {
+    putchar(' '); 
+    putchar(c); 
     enum Statetype state;
     if (c == '*') {
         putchar('N');
