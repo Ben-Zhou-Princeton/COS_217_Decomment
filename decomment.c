@@ -180,7 +180,7 @@ int main(void) {
         }
     }
 
-    if (state == Regular_Text || state = Begin_Comment|| state == Begin_Char || state == Ord_Char || state == Begin_Str || state == Ord_Str) {
+    if (state == Regular_Text || state == Begin_Comment|| state == Begin_Char || state == Ord_Char || state == Begin_Str || state == Ord_Str) {
         return EXIT_SUCCESS; 
     }
 
