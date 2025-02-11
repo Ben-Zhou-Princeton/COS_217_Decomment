@@ -28,7 +28,7 @@ enum Statetype handleRegularTextState(int c) {
 }
 enum Statetype handleBeginCommentState(int c) { 
     enum Statetype state; 
-    
+
     if (c == '/') { 
         putchar('/'); 
         state = Begin_Comment;
@@ -118,23 +118,13 @@ enum Statetype handleExitCommentState(int c) {
 enum Statetype handleOrdinaryCharState(int c) { 
     enum Statetype state; 
     putchar(c); 
-    if (c == '\\') { 
-        state = Ord_Char; 
-    }
-    else {
-        state = Begin_Char; 
-    }
+    state = Begin_Char; 
     return state; 
 }
 enum Statetype handleOrdinaryStrState(int c) { 
     enum Statetype state; 
     putchar(c); 
-    if (c == '\\') {
-        state = Ord_Str; 
-    }
-    else {
-        state = Begin_Str; 
-    }
+    state = Begin_Str; 
     return state; 
 }
 
