@@ -84,6 +84,7 @@ enum Statetype handleBeginStringState(int c) {
 enum Statetype handleInCommentState(int c) {
     enum Statetype state;
     if (c == '*') {
+        putchar('N');
         state = Exit_Comment; 
     }
     else if (c == '\n') {
@@ -101,13 +102,13 @@ enum Statetype handleExitCommentState(int c) {
         state = Exit_Comment;
     }
     else if (c == '/') {
-        putchar('N'); 
         putchar(' '); 
         state = Regular_Text; 
     }
     else { 
         state = In_Comment; 
     }
+
     return state; 
 }
 enum Statetype handleOrdinaryCharState(int c) { 
