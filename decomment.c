@@ -107,7 +107,7 @@ enum Statetype handleExitCommentState(int c) {
     }
     else if (c == '\n') { 
         putchar(c); 
-        state = Exit_Comment; 
+        state = In_Comment; 
     }
     else { 
         state = In_Comment; 
@@ -133,6 +133,7 @@ int main(void) {
     int totalLines = 1; 
     int lineError = 1; 
     int inCommentTimes = 0; 
+    int exitCommentTimes = 0; 
 
     enum Statetype state = Regular_Text; 
     while ((c = getchar()) != EOF) { 
@@ -153,13 +154,14 @@ int main(void) {
                 state = handleBeginStringState(c); 
                 break; 
             case In_Comment:
-                if (inCommentTimes == 0) { 
+                inCommentTimes++; 
+                if (inCommentTimes != exitCommentTimes) { 
                     lineError = totalLines; 
                 } 
                 state = handleInCommentState(c); 
-                inCommentTimes++; 
                 break; 
             case Exit_Comment:
+                exitCommentTimes++; 
                 state = handleExitCommentState(c);
                 break; 
             case Ord_Char: 
