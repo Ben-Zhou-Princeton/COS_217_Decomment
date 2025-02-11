@@ -98,10 +98,10 @@ enum Statetype handleExitCommentState(int c) {
         state = Exit_Comment;
     }
     else if (c == '/') {
+        putchar(' '); 
         state = Regular_Text; 
     }
-    else {
-        putchar(' '); 
+    else { 
         state = In_Comment; 
     }
     return state; 
@@ -130,11 +130,9 @@ enum Statetype handleOrdinaryStrState(int c) {
 }
 
 int main(void) { 
-    putchar('P');
     int c; 
     int totalLines = 1; 
-    int lineError = 0; 
-    int line = 1; 
+    int lineError = 1; 
     enum Statetype state = Regular_Text; 
     while ((c = getchar()) != EOF) { 
         if (c == '\n'){
@@ -154,6 +152,7 @@ int main(void) {
                 state = handleBeginStringState(c); 
                 break; 
             case In_Comment:
+                lineError = totalLines; 
                 state = handleInCommentState(c); 
                 break; 
             case Exit_Comment:
