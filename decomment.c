@@ -24,7 +24,7 @@ enum Statetype handleRegularTextState(int c) {
     } 
     return state; 
 }
-enum Statetype handleBeginCommentState(int c, int errorLine, int totalLines) { 
+enum Statetype handleBeginCommentState(int c) { 
     enum Statetype state; 
     if (c == '/') { 
         putchar('/'); 
@@ -32,7 +32,6 @@ enum Statetype handleBeginCommentState(int c, int errorLine, int totalLines) {
         state = Begin_Comment;
     }
     else if (c == '*') { 
-        errorLine = totalLines; 
         state = In_Comment;
     }
     else if (c == '\'') { 
@@ -131,10 +130,11 @@ enum Statetype handleOrdinaryStrState(int c) {
 }
 
 int main(void) { 
-    putstr("Penis"); 
+    putchar('P');
     int c; 
     int totalLines = 1; 
-    int lineError = 1; 
+    int lineError = RLIM_INFINITY; 
+    int line = 1; 
     enum Statetype state = Regular_Text; 
     while ((c = getchar()) != EOF) { 
         if (c == '\n'){
