@@ -95,11 +95,13 @@ enum Statetype handleInCommentState(int c) {
     return state; 
 }
 enum Statetype handleExitCommentState(int c) { 
+
     enum Statetype state;
     if (c == '*') {
         state = Exit_Comment;
     }
     else if (c == '/') {
+        putchar('N'); 
         putchar(' '); 
         state = Regular_Text; 
     }
