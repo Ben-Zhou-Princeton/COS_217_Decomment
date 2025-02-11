@@ -28,6 +28,7 @@ enum Statetype handleRegularTextState(int c) {
 }
 enum Statetype handleBeginCommentState(int c) { 
     enum Statetype state; 
+    
     if (c == '/') { 
         putchar('/'); 
         state = Begin_Comment;
@@ -46,6 +47,9 @@ enum Statetype handleBeginCommentState(int c) {
         putchar(c); 
         state = Begin_Str;
     } 
+    else if (c == EOF) { 
+        putchar('/')
+    }
     else {
         putchar('/');
         putchar(c); 
