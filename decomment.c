@@ -104,6 +104,10 @@ enum Statetype handleExitCommentState(int c) {
     else if (c == '/') {
         state = Regular_Text; 
     }
+    else if (c == '\n') { 
+        putchar(c); 
+        state = Exit_Comment; 
+    }
     else { 
         state = In_Comment; 
     }
@@ -176,7 +180,7 @@ int main(void) {
         }
     }
 
-    if (state == Regular_Text || state == Begin_Char || state == Ord_Char || state == Begin_Str || state == Ord_Str) {
+    if (state == Regular_Text || state = Begin_Comment|| state == Begin_Char || state == Ord_Char || state == Begin_Str || state == Ord_Str) {
         return EXIT_SUCCESS; 
     }
 
