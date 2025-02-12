@@ -7,8 +7,8 @@ and char literals */
 /* defines constants representing each state in the DFA */
 
 enum Statetype {Regular_Text, Begin_Comment,
- In_Comment, Exit_Comment, Begin_Char, Ord_Char,
-  Begin_Str, Ord_Str};
+In_Comment, Exit_Comment, Begin_Char, Ord_Char,
+Begin_Str, Ord_Str};
 /* Implement the Regular Text state of DFA. c is the current DFA 
 character. If c is a regular character, prints and stays 
 in Regular Text state. If c is a /, moves to 
