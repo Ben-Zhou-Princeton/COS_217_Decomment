@@ -240,8 +240,7 @@ int main(void) {
     }
 
     else { 
-        fprintf(stderr, "Error: line %d: 
-        unterminated comment\n", lineError); 
+        fprintf(stderr, "Error: line %d: unterminated comment\n", lineError); 
         return EXIT_FAILURE; 
     } 
 }
